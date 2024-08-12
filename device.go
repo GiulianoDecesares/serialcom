@@ -16,8 +16,8 @@ type Device struct {
 	responseTimeOut time.Duration
 }
 
-func NewDevice(usbPort string, responseTimeOut time.Duration) (*Device, error) {
-	port, err := serial.OpenPort(&serial.Config{Name: usbPort, Baud: 115200})
+func NewDevice(usbPort string, baud int, responseTimeOut time.Duration) (*Device, error) {
+	port, err := serial.OpenPort(&serial.Config{Name: usbPort, Baud: baud})
 
 	if err != nil {
 		return nil, errors.Wrap(err, "error opening USB port")

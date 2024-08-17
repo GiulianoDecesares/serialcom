@@ -53,6 +53,11 @@ func (device *Device) Send(message Message) (Message, error) {
 	responseChan := make(chan Message, 1)
 	errChan := make(chan error, 1)
 
+	defer func() {
+		close(responseChan)
+		close(errChan)
+	}()
+
 	go func() {
 		if device.receiver.Scan() {
 			data := device.receiver.Bytes()
